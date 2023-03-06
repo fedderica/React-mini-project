@@ -3,15 +3,15 @@ import Form from './Form';
 
 const WeatherPanel = () => {
 
-    let urlWeather = "https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid=892e393ec40afa4cf92d3bcd81dfdb14";
+    let urlWeather = "https://api.openweathermap.org/data/3.0/onecall?appid=892e393ec40afa4cf92d3bcd81dfdb14";
     let cityUrl = "&q";  
 
-    let urlForescast= "https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid=892e393ec40afa4cf92d3bcd81dfdb14";
+    let urlForescast= "https://api.openweathermap.org/data/3.0/onecall?appid=892e393ec40afa4cf92d3bcd81dfdb14";
     
      const [weather, setWeather] = useState([]);
      const [forecast, setForecast] = useState([]);
      const [loading, setLoading] = useState(false);
-     const [show, setState] = useState(false);
+     const [show, setShow] = useState(false);
      const [location, setLocation] = useState("");
 
      const getLocation = async(loc) => {
@@ -20,26 +20,26 @@ const WeatherPanel = () => {
 
          urlWeather = urlWeather + cityUrl + loc;
 
-         await fetch(urlWeather).then{(response) => {{
+         await fetch(urlWeather).then((response) => {
             if (!response.ok) throw {response}
             return response.json();
-         }).then((weatherData)) => {
+         }).then((weatherData) => {
             console.log(weatherData);
              setWeather(weatherData);
          }).catch(error =>{
             console.log(error);
             setLoading(false);
-         setShow(false);
+             setShow(false);
         });
 
         //Forecast
 
         urlForescast = urlForescast + cityUrl+loc;
         
-        await fetch(urlForescast).then{(response) => {{
+        await fetch(urlForescast).then((response) => {
             if (!response.ok) throw {response}
             return response.json();
-         }).then((forecastData)) => {
+         }).then((forecastData) => {
             console.log(forecastData);
              setForecast(forecastData);
 
